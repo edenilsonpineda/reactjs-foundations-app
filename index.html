@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started with React</title>
+  <!-- TailWind CSS for UI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <!-- React related dependencies -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- Babel Script -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const techStack = ["HTML5", "CSS", "JavaScript", "ReactJS", "Tailwind CSS"];
+    const app = document.getElementById("app");
+    
+    function Header({ title }) {
+      console.log(title);
+      return <h1 className="font-sans text-2xl font-bold">{title ? title : 'This is the Default Title 👀'}</h1>;
+    };
+
+    /**
+     * Prints out the TechStack array as string within a paragraph element
+     * */
+    function TechStack() {
+      return (
+        <p className="my-3 font-mono">{techStack.toString()}</p>
+      );
+    };
+
+    
+
+    function HomePage() {
+      /**
+       * 
+       * Note: 
+       * Unlike props which are passed to components as the first function parameter, the state is initiated and stored within a component. 
+       * You can pass the state information to children components as props
+       * but the logic for updating the state should be kept within the component where state was initially created.
+       */
+      const [likes, setLikes] = React.useState(0);
+      function handleClick() {
+        console.log("Increment the likes counter!");
+        setLikes(likes + 1);
+      };
+
+      return (
+        <div className="grid grid-flow-row auto-rows-max items-center justify-center content-center h-screen text-center">
+          {/** Nesting components */}
+          <div>
+            <Header title="Develop. Preview. Ship. 🚀 " />
+          </div>
+          <div>
+            <p>Made by @edenilsonpineda</p>
+          </div>
+          {/** 
+          <div>
+            <TechStack />
+          </div> */}
+          <div>
+            <button onClick={handleClick} className="flex-none rounded-md bg-emerald-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emeral-400 my-3">Click me 👀</button>
+            {likes > 0 ? <p className="my-6">Numbers of likes: <b>{likes}</b></p> : ""}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<HomePage />, app);
+
+  </script>
+</body>
+
+</html>
